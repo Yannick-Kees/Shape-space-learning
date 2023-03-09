@@ -3,13 +3,12 @@
 # About
 Implementation of
 
-
 * [Learning Geometric Phase Field representations](https://drive.google.com/drive/u/0/folders/1LKQha7mYWvPzKKS2yC0zf_19FEzRlly8) (Yannick Kees 2022)
 
 
 General workflow:
-- Create dataset in dataset.py. A dataset is a Nx2xPxd dimensional matrix
-- Use dataset in one of the executable files: learn_shapespace_and_AE_2d.py, 
+- Create dataset in dataset.py. A dataset is a Nx2xPxd dimensional matrix (second dimension for points and feature, the second dimension is empty for most datasets, i.e. if the true latent coordinates are unknown)
+- Use dataset in one of the executable files: i.e. learn_shapespace_and_AE_2d.py, 
 - In these files, you can turn the global parameters at the beginning of the file
 - The Neural Network should be 'ParkEtAl' for the single shape learning and 'FeatureSpaceNetwork2' for the shape space learning. (The difference to FeatureSpaceNetwork is that the feature vector is concatenate to the input, after the input passes the Fourier layer. In FeatureSpaceNetwork the feature is directly 
 concatenated to the input and the concatenation is passed through the fourier layer)
@@ -17,7 +16,7 @@ concatenated to the input and the concatenation is passed through the fourier la
 - The true number of fourier features is = num_features * 2 * input_dimension
 - Run file on volta
 - Copy autoencoder and shapespace network to local pc
-- Run test_shape_space file 
+- Run test_shape_space file (change paths beforehand)
 - Done :)
 
 | File | Description |
