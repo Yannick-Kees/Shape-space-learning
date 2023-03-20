@@ -369,14 +369,7 @@ def shape_space_toParaview(f, n, l, fv):
     X = np.arange(0, lx + 0.1*dx, dx, dtype='float64') -.4
     Y = np.arange(0, ly + 0.1*dy, dy, dtype='float64')  -.4
     Z = np.arange(0, lz + 0.1*dz, dz, dtype='float64') -.4
-    """
-    x = np.zeros((nx + 1, ny + 1, nz + 1)) 
-    y = np.zeros((nx + 1, ny + 1, nz + 1)) 
-    z = np.zeros((nx + 1, ny + 1, nz + 1)) 
 
-    values = np.zeros((nx + 1, ny + 1, nz + 1)) 
-    values = np.array([X,Y,Z]).T
-    """
     fv = fv.detach().cpu().numpy()
     yy,xx,zz = np.meshgrid(X,Y,Z)
     all_data = np.array([xx,yy,zz]).T.reshape((n+1)**3,3)

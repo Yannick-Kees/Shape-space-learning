@@ -1,4 +1,4 @@
-from shapemaker import *
+from logger import *
 
 ####################
 # Settings #########
@@ -32,8 +32,13 @@ dataset = np.load(open(r"dataset/dataset_9DCircleLATENT.npy", "rb"),allow_pickle
 #   Setup Network
 network =  FeatureSpaceNetwork2(2, [512]*7 , [4], FourierFeatures=FOURIER_FEATUERS, num_features = 8, sigma = SIGMA, feature_space=FEATURE_DIMENSION, geometric_init=False )
 network.to(device) 
+
+#   Configure Optimizer
 optimizer = optim.Adam(network.parameters(), START_LEARNING_RATE )
 scheduler = ReduceLROnPlateau(optimizer, 'min', patience=PATIENCE, verbose=False)
+
+#   Setup Logger
+Reg = Register(os.path.basename(__file__))
 
 for i in range(NUM_TRAINING_SESSIONS+1):
     
@@ -49,17 +54,19 @@ for i in range(NUM_TRAINING_SESSIONS+1):
 
         latent = torch.ravel(latent)
         loss +=  AT_loss_shapespace2(network, pointcloud, EPSILON, MONTE_CARLO_SAMPLES,  CONSTANT, latent ) 
-        
-    if (i%10==0):
-        report_progress(i, NUM_TRAINING_SESSIONS , loss.detach().cpu().numpy() )
-        
+
     # backpropagation
         
     loss.backward(retain_graph= True )
     optimizer.step()
     scheduler.step(loss)
+
+    if (i%10==0):
+        Reg.logging(i, loss, scheduler._last_lr[0])
+    if scheduler._last_lr[0] < 1.e-5:
+        break
     
 
 torch.save(network.state_dict(), "shape_space_9D_NoEncoder2_largeNN.pth")
-print("Finished")
+Reg.finished()
 

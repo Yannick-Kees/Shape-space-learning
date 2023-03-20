@@ -1,4 +1,4 @@
-from loss_functionals import *
+from logger import *
 
 ####################
 # Settings #########
@@ -29,16 +29,15 @@ MU = 0.5
 # Main #############
 ####################
 
-
-
-
+#   Setup Neural Network
 network = ParkEtAl(3, [512]*3 , [], FourierFeatures=FOURIER_FEATUERS, num_features = 8, sigma = SIGMA )
-
 network.to(device) 
+
+#   Configure Optimizer
 optimizer = optim.Adam(network.parameters(), START_LEARNING_RATE )
 scheduler = ReduceLROnPlateau(optimizer, 'min', patience=PATIENCE, verbose=False)
 
-
+#   Get point cloud
 file = open("3dObjects/bunny_0.ply")
 pc = read_ply_file(file)
 cloud = torch.tensor( normalize(pc))
@@ -48,18 +47,12 @@ cloud = torch.tensor( normalize(pc))
 cloud += torch.tensor([0.15,-.15,.1]).repeat(cloud.shape[0],1)
 cloud = torch.tensor(normalize(cloud) )
 
-
-
-
-
-
 pc = Variable( cloud , requires_grad=True).to(device)
 use_batch = (len(pc) > BATCHSIZE )
 
 for i in range(NUM_TRAINING_SESSIONS+1):
     # training the network
     # feed forward
-    # Omega = [0,1]^2
     
     network.zero_grad()
     
@@ -95,6 +88,4 @@ else:
 print("Loss: ", torch.abs(network(pointcloud)).mean())
 torch.save(network.state_dict(), "MM.pth")
 toParaview(network, 256, 10)
-
-
 print("Finished")

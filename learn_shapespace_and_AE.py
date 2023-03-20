@@ -1,4 +1,4 @@
-from shapemaker import *
+from logger import *
 
 ####################
 # Settings #########
@@ -32,23 +32,20 @@ TOTAL_SHAPES = 210   # 69 human
 autoencoder = PointNetAutoEncoder(3,SIZE_POINTCLOUD,FEATURE_DIMENSION)
 autoencoder.to(device) 
 
-
 #   Load dataset
 dataset = np.load(open(r"dataset/dataset_chicken.npy", "rb"),allow_pickle=True)
 
 #   Setup Shape Space Learning Network
 network =  FeatureSpaceNetwork2(3, [NUM_NODES]*7 , [4], FourierFeatures=FOURIER_FEATUERS, num_features = 8, sigma = SIGMA, feature_space=FEATURE_DIMENSION, geometric_init=False )
-
 network.to(device) 
 
+#   Configure Optimizer
 all_params = chain(network.parameters(), autoencoder.parameters())
 optimizer = torch.optim.Adam(all_params, START_LEARNING_RATE)
-
 scheduler = ReduceLROnPlateau(optimizer, 'min', patience=PATIENCE, verbose=False)
 
-# Check if it really trains both networks at the same time | Part 1
-#print(autoencoder(Variable( Tensor( np.array([ np.array(dataset[1][0]).T])) , requires_grad=True).to(device)))
-
+# Setup Logger
+Reg = Register(os.path.basename(__file__))
 
 for i in range(NUM_TRAINING_SESSIONS+1):
     
@@ -59,7 +56,7 @@ for i in range(NUM_TRAINING_SESSIONS+1):
     
     for index in shape_batch:
 
-        shape = dataset[index][0]#[:,:num_points]
+        shape = dataset[index][0]
         pointcloud = Variable( Tensor(shape) , requires_grad=False).to(device)
 
         cloudT = Tensor( np.array([ np.array(shape).T]))
@@ -69,22 +66,18 @@ for i in range(NUM_TRAINING_SESSIONS+1):
         latent = torch.ravel(latent)
         loss +=  AT_loss_shapespace2(network, pointcloud, EPSILON, MONTE_CARLO_SAMPLES,  CONSTANT, latent ) + 0.1 * torch.linalg.norm(latent)
         
-    if (i%10==0):
-        report_progress(i, NUM_TRAINING_SESSIONS , loss.detach().cpu().numpy() )
-    
-        
-        # backpropagation
-        
+    # backpropagation    
     loss.backward( )
     optimizer.step()
     scheduler.step(loss)
 
+    if (i%10==0):
+        Reg.logging(i, loss, scheduler._last_lr[0])
+    if scheduler._last_lr[0] < 1.e-5:
+        break
 
-
-# Check if it really trains both networks at the same time | Part 2   
-#print(autoencoder(Variable( Tensor( np.array([ np.array(dataset[1][0]).T])) , requires_grad=True).to(device)))
 
 torch.save(network.state_dict(), r"models/chicken.pth")
 torch.save(autoencoder.state_dict(), r"models/chicken.pth")
-print("Finished")
+Reg.finished()
 

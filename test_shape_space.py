@@ -182,8 +182,8 @@ def test_shape_space_circles_noEncoder(index):
 
     dataset = np.load(open(r"dataset/dataset_9DCircleLATENT.npy", "rb"),allow_pickle=True)
 
-    network =  FeatureSpaceNetwork2(2, [1024]*7 , [4], FourierFeatures=True, num_features = 8, sigma = 3, feature_space=feature_dim)
-    network.load_state_dict(torch.load(r"models/shape_space_9D_NoEncoder_1024_2_.pth", map_location=device))
+    network =  FeatureSpaceNetwork2(2, [2048]*7 , [4], FourierFeatures=True, num_features = 8, sigma = 3, feature_space=feature_dim)
+    network.load_state_dict(torch.load(r"models/shape_space_9D_NoEncoder_2048_2.pth", map_location=device))
     network.to(device) 
     network.eval()
     
@@ -194,7 +194,7 @@ def test_shape_space_circles_noEncoder(index):
     points = Variable( Tensor(points) , requires_grad=True).to(device)
     global_feat = Tensor([np.array(dataset[index][1])])
 
-    draw_phase_field_paper_is(network, global_feat, .5,.5, "1024_2_"+str(index), True)
+    draw_phase_field_paper_is(network, global_feat, .5,.5, "2048_2_"+str(index), True)
     return
 
 
