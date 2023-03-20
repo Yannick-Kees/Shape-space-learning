@@ -6,7 +6,7 @@ from loss_functionals import *
 
 # Neuronal Network
 NUM_TRAINING_SESSIONS = 30
-START_LEARNING_RATE = 0.01                        #  0.01
+START_LEARNING_RATE = 0.01                        
 PATIENCE = 1000
 NUM_NODES = 512
 FOURIER_FEATUERS = True
@@ -14,7 +14,6 @@ SIGMA = 1.3
 BATCHSIZE = 100
 
 # LOSS
-                                       # Either AT or MM
 MONTE_CARLO_SAMPLES = 500
 EPSILON = .01   #0.05 MM 0.01 AT b 0_05 more smooth
 TAU = EPSILON *10.0
@@ -25,7 +24,6 @@ K = 15
 # Main #############
 ####################
 
-#network = ParkEtAl(2, [NUM_NODES], [], geometric_init=True, FourierFeatures=FOURIER_FEATUERS, num_features = 6, sigma = SIGMA )
 v_k = ParkEtAl(2, [NUM_NODES], [], geometric_init=True, FourierFeatures=FOURIER_FEATUERS,num_features = 6, sigma = SIGMA)
 v_k.to(device)
 
@@ -52,7 +50,7 @@ for k in range(K):
         if (i%50==0):
             report_progress(i, NUM_TRAINING_SESSIONS , loss.detach().numpy() )
 
-            # backpropagation
+        # backpropagation
             
         v_kplus1.zero_grad()
         loss.backward()

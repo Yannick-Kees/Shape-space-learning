@@ -56,7 +56,6 @@ for i in range(NUM_TRAINING_SESSIONS+1):
         loss +=  AT_loss_shapespace2(network, pointcloud, EPSILON, MONTE_CARLO_SAMPLES,  CONSTANT, latent ) 
 
     # backpropagation
-        
     loss.backward(retain_graph= True )
     optimizer.step()
     scheduler.step(loss)
