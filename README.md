@@ -102,7 +102,7 @@ concatenated to the input and the concatenation is passed through the fourier la
 
 All packages are connected in series as you can see here:
 
-![](images/Drawing 2023-03-20 23.04.08.excalidraw.png)*Imports*
+![](images/import.png)*Imports*
 
 # External packages:
 * [Random Fourier Features Pytorch](https://github.com/jmclong/random-fourier-features-pytorch)  
