@@ -70,7 +70,7 @@ scp IP_ADRESS:~\Masterarbeit\structured2560.vts C:\Users\Yannick\Desktop
 | `packages.py` | All used third party packages |
 | `pointclouds.py` | Creates or changes point clouds |
 | `run.py` | Solves the 2D reconstruction problem. Can be executed on any computer |
-| `runMMS.py` | Deep minimizing movement scheme |
+| `runMMS.py` | Deep minimizing movement scheme, for more see [HERE](https://drive.google.com/file/d/1txqmr8siLwQjA0l8lGcqScwr0hRWTuvF/view?usp=share_link) |
 | `shapemaker.py` | Programm that can produce random point clouds in 2D or 3D form metaballs |
 | `test_autoencoder.py` | Plot inputs and outputs of Autoencoder for differnt shapes of dataset  |
 | `test_shape_space.py` | Make plots of elements of shape space after training  |
