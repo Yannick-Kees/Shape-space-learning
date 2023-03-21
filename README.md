@@ -7,41 +7,20 @@
 
 
 
-
-
-
-
 # About
 This is an implementation based on my Master Thesis
 
 * [Learning Geometric Phase Field representations]([https://drive.google.com/drive/u/0/folders/1LKQha7mYWvPzKKS2yC0zf_19FEzRlly8](https://drive.google.com/file/d/1lEK0yFL-ETgClx6Ld0mv3deVr2opwhrb/view?usp=share_link)) (Yannick Kees 2022)
 
-The area of computer graphics is a field of mathematics and computer science that deals with creating and manipulating visual content. One central question in computer graphics is the best way to represent three-dimensional data effectively. Most conventional approaches approximate the object’s surface discretely, for example, with meshes. One problem with these approaches is that spatial discretization limits them, just as the display of an image is limited by its number of pixels. Another popular approach is implicit representation, in which the object is written as the level set of an appropriate function. Instead of discretizing the output domain, we can now discretize the space of available functions. In this thesis, we deal with how to find such a function. To this end, we place a particular focus on phase field functions. These functions are, for the most part, constant, with a smooth transition along the surface where the value of the function changes. We distinguish between two different models: the Modica-Mortola approach,in which there are two different phases for an interior and exterior, and the Ambrosio-Tortorelli approach, in which there is only one phase. Calculating these functions is very challenging. Therefore we use deep learning, i.e., neural networks, to approximate the phase fields. The starting points for all our calculations are sets of points sampled from the surfaces of the objects. Learning implicit functions using the Modica-Mortola approach has been introduced in [Phase Transitions, Distance Functions, and Implicit Neural Representations](https://arxiv.org/abs/2106.07689). This new approach Ambrosio-Tortorelli approach in this work based on [AT90]. Using this new approach, we will also be able to process open surfaces, which was impossible before. In order to be able to use neural networks for any task, there are three points that we need to consider. The first one is how we design the architecture of a neural network. This part has already been studied in depth, and we will build on these results. The second part is to consider the available ground truth/training data. Based on that, we can go to the third point, choosing a loss functional that the network should aim to minimize.
-To do this, we distinguish two different tasks. The first goal will be to train a network to match
-the phase field for a single 3D object. In the second step, we will train a network that can
-represent the phase fields for several objects at once. Therefore, the network receives additional object-specific input. For most of the current work, the ground truth data in both cases is al-
-ready an implicit function that is approximated by a neural network function. In this case, the
-
-loss functional can be a metric between the given function and the learned function. However, if
-the available data consists of only a set of points sampled from the object’s surface, this becomes
-more difficult. Therefore, we will derive a new method for the case in which several phase field
-representations are learned at once based on autoencoders.
-In this thesis, our primary goal will be finding suitable loss functions for all these tasks. We will then test these losses and their different parameters on objects in 2D and 3D and show how to
-construct simple datasets for this task.
+The area of computer graphics is a field of mathematics and computer science that deals with creating and manipulating visual content. One central question in computer graphics is the best way to represent three-dimensional data effectively. Most conventional approaches approximate the object’s surface discretely, for example, with meshes. One problem with these approaches is that spatial discretization limits them, just as the display of an image is limited by its number of pixels. Another popular approach is implicit representation, in which the object is written as the level set of an appropriate function. Instead of discretizing the output domain, we can now discretize the space of available functions. In this thesis, we deal with how to find such a function. To this end, we place a particular focus on phase field functions. These functions are, for the most part, constant, with a smooth transition along the surface where the value of the function changes. We distinguish between two different models: the Modica-Mortola approach,in which there are two different phases for an interior and exterior, and the Ambrosio-Tortorelli approach, in which there is only one phase. Calculating these functions is very challenging. Therefore we use deep learning, i.e., neural networks, to approximate the phase fields. The starting points for all our calculations are sets of points sampled from the surfaces of the objects. Learning implicit functions using the Modica-Mortola approach has been introduced in [Phase Transitions, Distance Functions, and Implicit Neural Representations](https://arxiv.org/abs/2106.07689). The new approach Ambrosio-Tortorelli approach in this work based on [Approximation of Functionals Depending on Jumps by Elliptic Functionals via $\Gamma$-Convergence](https://onlinelibrary.wiley.com/doi/pdf/10.1002/cpa.3160430805). Using this new approach, we will also be able to process open surfaces, which was impossible before. To do this, we distinguish two different tasks. The first goal will be to train a network to match the phase field for a single 3D object. In the second step, we will train a network that can
+represent the phase fields for several objects at once. Therefore, the network receives additional object-specific input. 
 
 ![](images/ezgif-5-ae0dee7d73.gif)*Reconstruction of a square*
-General workflow:
-- Create dataset in dataset.py. A dataset is a Nx2xPxd dimensional matrix
-- Use dataset in one of the executable files: learn_shapespace_and_AE_2d.py, 
-- In these files, you can turn the global parameters at the beginning of the file
-- The Neural Network should be 'ParkEtAl' for the single shape learning and 'FeatureSpaceNetwork2' for the shape space learning. (The difference to FeatureSpaceNetwork is that the feature vector is concatenate to the input, after the input passes the Fourier layer. In FeatureSpaceNetwork the feature is directly 
-concatenated to the input and the concatenation is passed through the fourier layer)
-- Changing the Neural Network: The brackets contain the indices of layers, that get a skipping connection from the input layer
-- The true number of fourier features is = num_features * 2 * input_dimension
-- Run file on volta
-- Copy autoencoder and shapespace network to local pc
-- Run test_shape_space file 
-- Done :)
+![](images/front.png)*Reconstruction of a bunny*
+![](images/5.png)*Reconstruction of the nefreteti statue*
+
+
+
 
 
 
@@ -72,10 +51,11 @@ Get files from volta using
 ```
 scp IP_ADRESS:~\Masterarbeit\structured2560.vts C:\Users\Yannick\Desktop
 ```
-# Imports
+
 
 
 #Files
+
 | File | Description |
 | --- | --- |
 | `3Dvisualization.ipynb` | Coarse rendering of Neural Networks in Jupyter Notebook, the rendering is really bad and misleading so never use it!! |
@@ -104,7 +84,25 @@ scp IP_ADRESS:~\Masterarbeit\structured2560.vts C:\Users\Yannick\Desktop
 | `volta.py` | Solves the 3D reconstruction problem. Should only be executed on high performance computer |
 
 
+General workflow:
+- Create dataset in dataset.py. A dataset is a Nx2xPxd dimensional matrix
+- Use dataset in one of the executable files: learn_shapespace_and_AE_2d.py, 
+- In these files, you can turn the global parameters at the beginning of the file
+- The Neural Network should be 'ParkEtAl' for the single shape learning and 'FeatureSpaceNetwork2' for the shape space learning. (The difference to FeatureSpaceNetwork is that the feature vector is concatenate to the input, after the input passes the Fourier layer. In FeatureSpaceNetwork the feature is directly 
+concatenated to the input and the concatenation is passed through the fourier layer)
+- Changing the Neural Network: The brackets contain the indices of layers, that get a skipping connection from the input layer
+- The true number of fourier features is = num_features * 2 * input_dimension
+- Run file on volta
+- Copy autoencoder and shapespace network to local pc
+- Run test_shape_space file 
+- Done :)
 
+
+# Imports
+
+All packages are connected in series as you can see here:
+
+![](images/Drawing 2023-03-20 23.04.08.excalidraw.png)
 
 # External packages:
 * [Random Fourier Features Pytorch](https://github.com/jmclong/random-fourier-features-pytorch)  
