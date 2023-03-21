@@ -58,13 +58,9 @@ scp IP_ADRESS:~\Masterarbeit\structured2560.vts C:\Users\Yannick\Desktop
 
 | File | Description |
 | --- | --- |
-| `3Dvisualization.ipynb` | Coarse rendering of Neural Networks in Jupyter Notebook, the rendering is really bad and misleading so never use it!! |
-| `analyse_faces.py` | Creates a 2D matrix/image comparing the pairwise distances of the face-shape dataset to measure similarities in different norms. |
 | `dataset.py` | Creates and Visualises Datasets. It can create datasets from generated objects or from a given directory of files |
-| `different_networksizes.py` | Measure accuracy of NN while increasing networks. This was just a plot in my thesis  |
 | `interpolation.py` | Interpolation between to shapes of the shape space. The functions get as input the different shape space indices and interpolate the computed latent coordinates |
 | `learn_shapespace_and_AE_2D.py` | Trains Shape space network together with the Encoder on 2D examples |
-| `learn_shapespace_and_AE_cd.py` | Trains Shape space network together with the Encoder on 2D examples. To the loss function a term representing the chamfer distances is added |
 | `learn_shapespace_and_AE.py` | Trains Shape space network together with the Encoder on 3D examples |
 | `learn_shapespace2D.py` | Trains Shape space network on 2D examples. The ground truth feature vectors are known and entered into the network. |
 | `logger.py` | Denotes the loss over time in a file and also saves a copy of the current version of the executeable python script  |
@@ -75,10 +71,9 @@ scp IP_ADRESS:~\Masterarbeit\structured2560.vts C:\Users\Yannick\Desktop
 | `pointclouds.py` | Creates or changes point clouds |
 | `run.py` | Solves the 2D reconstruction problem. Can be executed on any computer |
 | `runMMS.py` | Deep minimizing movement scheme |
-| `Shapemaker.py` | Programm that can produce random point clouds in 2D or 3D form metaballs |
+| `shapemaker.py` | Programm that can produce random point clouds in 2D or 3D form metaballs |
 | `test_autoencoder.py` | Plot inputs and outputs of Autoencoder for differnt shapes of dataset  |
 | `test_shape_space.py` | Make plots of elements of shape space after training  |
-| `test.py` | Ignore this.. |
 | `train_autoencoder.py` | Train PointNet - Autoencoder for the different datasets  |
 | `visualizing.py` | Handles visualization of input and output data |
 | `volta.py` | Solves the 3D reconstruction problem. Should only be executed on high performance computer |
