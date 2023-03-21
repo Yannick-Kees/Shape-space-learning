@@ -1,3 +1,14 @@
+# Table of Contents
+1. [About](#example)
+2. [How to install](#How-to-install)
+3. [Files](#third-example)
+4. [Imports](#imports)
+5. [External Packages](External-packages)
+
+
+
+
+
 <img src="images/ezgif-5-3a9525dd52.gif" height="402pt">
 
 # About
@@ -19,33 +30,6 @@ concatenated to the input and the concatenation is passed through the fourier la
 - Copy autoencoder and shapespace network to local pc
 - Run test_shape_space file 
 - Done :)
-
-| File | Description |
-| --- | --- |
-| `3Dvisualization.ipynb` | Coarse rendering of Neural Networks in Jupyter Notebook, the rendering is really bad and misleading so never use it!! |
-| `analyse_faces.py` | Creates a 2D matrix/image comparing the pairwise distances of the face-shape dataset to measure similarities in different norms. |
-| `dataset.py` | Creates and Visualises Datasets. It can create datasets from generated objects or from a given directory of files |
-| `different_networksizes.py` | Measure accuracy of NN while increasing networks. This was just a plot in my thesis  |
-| `interpolation.py` | Interpolation between to shapes of the shape space. The functions get as input the different shape space indices and interpolate the computed latent coordinates |
-| `learn_shapespace_and_AE_2D.py` | Trains Shape space network together with the Encoder on 2D examples |
-| `learn_shapespace_and_AE_cd.py` | Trains Shape space network together with the Encoder on 2D examples. To the loss function a term representing the chamfer distances is added |
-| `learn_shapespace_and_AE.py` | Trains Shape space network together with the Encoder on 3D examples |
-| `learn_shapespace2D.py` | Trains Shape space network on 2D examples. The ground truth feature vectors are known and entered into the network. |
-| `logger.py` | Denotes the loss over time in a file and also saves a copy of the current version of the executeable python script  |
-| `loss_functionals.py` | Computes Modica-Mortola and Ambrosio-Tortorelli. There are different versions for the shape space learning and the surface reconstruction parts  |
-| `misc.py` | Handles import of different file formates, enables CUDA and shows progress on console  |
-| `networks.py` | Neural Networks  |
-| `packages.py` | All used third party packages |
-| `pointclouds.py` | Creates or changes point clouds |
-| `run.py` | Solves the 2D reconstruction problem. Can be executed on any computer |
-| `runMMS.py` | Deep minimizing movement scheme |
-| `Shapemaker.py` | Programm that can produce random point clouds in 2D or 3D form metaballs |
-| `test_autoencoder.py` | Plot inputs and outputs of Autoencoder for differnt shapes of dataset  |
-| `test_shape_space.py` | Make plots of elements of shape space after training  |
-| `test.py` | Ignore this.. |
-| `train_autoencoder.py` | Train PointNet - Autoencoder for the different datasets  |
-| `visualizing.py` | Handles visualization of input and output data |
-| `volta.py` | Solves the 3D reconstruction problem. Should only be executed on high performance computer |
 
 
 
@@ -76,8 +60,41 @@ Get files from volta using
 ```
 scp IP_ADRESS:~\Masterarbeit\structured2560.vts C:\Users\Yannick\Desktop
 ```
+# Imports
 
-### External packages:
+
+#Files
+| File | Description |
+| --- | --- |
+| `3Dvisualization.ipynb` | Coarse rendering of Neural Networks in Jupyter Notebook, the rendering is really bad and misleading so never use it!! |
+| `analyse_faces.py` | Creates a 2D matrix/image comparing the pairwise distances of the face-shape dataset to measure similarities in different norms. |
+| `dataset.py` | Creates and Visualises Datasets. It can create datasets from generated objects or from a given directory of files |
+| `different_networksizes.py` | Measure accuracy of NN while increasing networks. This was just a plot in my thesis  |
+| `interpolation.py` | Interpolation between to shapes of the shape space. The functions get as input the different shape space indices and interpolate the computed latent coordinates |
+| `learn_shapespace_and_AE_2D.py` | Trains Shape space network together with the Encoder on 2D examples |
+| `learn_shapespace_and_AE_cd.py` | Trains Shape space network together with the Encoder on 2D examples. To the loss function a term representing the chamfer distances is added |
+| `learn_shapespace_and_AE.py` | Trains Shape space network together with the Encoder on 3D examples |
+| `learn_shapespace2D.py` | Trains Shape space network on 2D examples. The ground truth feature vectors are known and entered into the network. |
+| `logger.py` | Denotes the loss over time in a file and also saves a copy of the current version of the executeable python script  |
+| `loss_functionals.py` | Computes Modica-Mortola and Ambrosio-Tortorelli. There are different versions for the shape space learning and the surface reconstruction parts  |
+| `misc.py` | Handles import of different file formates, enables CUDA and shows progress on console  |
+| `networks.py` | Neural Networks  |
+| `packages.py` | All used third party packages |
+| `pointclouds.py` | Creates or changes point clouds |
+| `run.py` | Solves the 2D reconstruction problem. Can be executed on any computer |
+| `runMMS.py` | Deep minimizing movement scheme |
+| `Shapemaker.py` | Programm that can produce random point clouds in 2D or 3D form metaballs |
+| `test_autoencoder.py` | Plot inputs and outputs of Autoencoder for differnt shapes of dataset  |
+| `test_shape_space.py` | Make plots of elements of shape space after training  |
+| `test.py` | Ignore this.. |
+| `train_autoencoder.py` | Train PointNet - Autoencoder for the different datasets  |
+| `visualizing.py` | Handles visualization of input and output data |
+| `volta.py` | Solves the 3D reconstruction problem. Should only be executed on high performance computer |
+
+
+
+
+# External packages:
 * [Random Fourier Features Pytorch](https://github.com/jmclong/random-fourier-features-pytorch)  
 * [K3D Jupyter](https://github.com/K3D-tools/K3D-jupyter)  <- bad renderer, not important
 * [EVTK (Export VTK) ](https://github.com/paulo-herrera/PyEVTK) <- exports 3D examples for paraview
