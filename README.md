@@ -2,6 +2,7 @@
 1. [About](#example)
 2. [How to install](#How-to-install)
 3. [Files](#Files)
+    1. [analyse_faces.py](##analyse_faces.py)
 4. [Imports](#imports)
 5. [External Packages](External-packages)
 
