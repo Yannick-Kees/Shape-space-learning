@@ -2,7 +2,6 @@
 1. [About](#example)
 2. [How to install](#How-to-install)
 4. [Files](#Files)
-      1.[logger](##logger)
 5. [Imports](#imports)
 6. [External Packages](#External-packages)
 
@@ -193,6 +192,28 @@ The code also includes three functions for manipulating point clouds.
 - The second function, **normalize(pc)**, scales all the points in the point cloud pc to be within the range [-0.3, 0.3]. It first converts the *pc* list to a *numpy* matrix, finds the minimum value in the matrix, and subtracts it from all elements. It then calculates the maximum value of the matrix, scales the matrix by a factor of 0.6, and shifts it by 0.3. Finally, it converts the *numpy* matrix back to a list.
 
 - The third function, **cut_hole(pc)**, removes a circular hole from the point cloud *pc*. It creates a new list *new_pc* and iterates over each point in *pc*. If the point is not inside the specified circular region (determined by a center at [0, 0.15, 0] and a radius of 0.05), the point is appended to the new list *new_pc*. The function prints the length of pc and the length of *new_pc* for diagnostic purposes and returns *new_pc*.
+
+
+## shapemaker.py
+
+The function **shape_maker1** generates point cloud samples from a randomly generated 2D or 3D object using a Metaball approach. The *d* parameter specifies the dimension of the point cloud, either 2 or 3. The *num_points* parameter specifies the number of points to be sampled. If *save_latent* is set to *True*, the function returns the ground truth latent representation along with the generated point cloud.
+
+If *d* is 2, the function generates a 2D point cloud using a Metacircle approach. The algorithm generates n circles with random centers and radii such that they do not overlap. The zero-level set of the function defined in the $f(x,y)$ function is used to extract the iso-surface of the object, which is then used to generate the point cloud. The normalize function is applied to the generated point cloud, and the function returns the normalized point cloud or the normalized point cloud along with the ground truth latent representation.
+
+If *d* is 3, the function generates a 3D point cloud using a similar approach. It generates n spheres with random centers and radii such that they do not overlap. The zero-level set of the function defined in the f(x,y,z) function is used to extract the iso-surface of the object, which is then used to generate the point cloud. The normalize function is applied to the generated point cloud, and the function returns the normalized point cloud or the normalized point cloud along with the ground truth latent representation.
+
+
+## visualizing.py
+
+The code consists of functions used for generating visualizations of functions. The most important functions are:
+
+- **draw_phase_field_paper(f, x_, y_, i, film)** This function creates a contour plot of the input function *f* on the rectangular domain [0, x_] x [0, y_]. The parameter *i* is used to name the output file, and *film* is a boolean variable that determines whether or not to save the output as an image file.
+
+- **draw_phase_field_paper_is(f, latent, x_, y_, i, film)** This function is similar to *draw_phase_field_paper*, but it takes an additional input *latent* that is used to evaluate the function *f*. It generates a contour plot of *f* on the same rectangular domain [0, x_] x [0, y_], but uses the *imshow* function for visualization.
+
+- **color_plot(f, y, film)** this function creates a 3D plot of the input function *f* on the unit square [0, 1] x [0, 1]. The parameter *y* is used to name the output file, and *film* is a boolean variable that determines whether or not to save the output as an image file.
+
+- **draw_point_cloud(pc)** This function plots a point cloud *pc* in either two or three dimensions. If the dimension of the point cloud is two, the function plots the points as a scatter plot. If the dimension of the point cloud is three, the function plots the points as a 3D scatter plot.
 
 ## Executable files
 
