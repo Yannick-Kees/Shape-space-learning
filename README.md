@@ -2,6 +2,7 @@
 1. [About](#example)
 2. [How to install](#How-to-install)
 4. [Files](#Files)
+      1.[logger](##logger)
 5. [Imports](#imports)
 6. [External Packages](#External-packages)
 
@@ -112,7 +113,7 @@ The script is written in Python and contains functions that create and visualize
 The code defines three functions, **interpol_2d(), interploate_3d(start_shape, end_shape)**, and **interploate_2d(start_shape, end_shape)**. The **interpol_2d()** function loads two trained models, interpolates between them using a loop, and calls two plotting functions, *color_plot_interpolate()* and *draw_phase_field_interpolate()*. The **interploate_3d(start_shape, end_shape)** function loads a dataset, an autoencoder, and a shape space network, interpolates between two shapes using the autoencoder and shape space network, and saves Paraview files of the intermediate shapes. The **interploate_2d(start_shape, end_shape)** function loads a dataset, an autoencoder, and a shape space network, interpolates between two shapes using the autoencoder and shape space network, and calls the *draw_phase_field_paper_is()* function to plot the intermediate shapes. 
 
 
-## logger.py
+## logger
 
 This code defines a class called Register which creates a logging mechanism for an experiment. The *__init__* method takes a file argument, which is used to create a unique identifier for the experiment by combining the name of the file and the current date and time.
 
