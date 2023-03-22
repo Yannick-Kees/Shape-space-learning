@@ -1,7 +1,7 @@
 # Table of Contents
 1. [About](#example)
 2. [How to install](#How-to-install)
-    1.[logger.py](##logger.py)
+        1.[logger.py](##logger.py)
 3. [Files](#Files)
 4. [Imports](#imports)
 5. [External Packages](#External-packages)
