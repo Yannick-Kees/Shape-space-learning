@@ -1,7 +1,7 @@
 # Table of Contents
 1. [About](#example)
 2. [How to install](#How-to-install)
-3. [Files](#third-example)
+3. [Files](#Files)
 4. [Imports](#imports)
 5. [External Packages](External-packages)
 
@@ -92,8 +92,24 @@ concatenated to the input and the concatenation is passed through the fourier la
 - Run test_shape_space file 
 - Done :)
 
+## analyse_faces.py
 
-### logger.py
+The code is a Python script that shows the implementation of the Chamfer distance function for point clouds from the [PyTorch3D](https://pytorch3d.readthedocs.io/en/latest/modules/loss.html) library. The script imports several libraries such as numpy, matplotlib, and PyTorch, including specific modules from them. The Chamfer distance function is defined as own_chamfer_distance with several arguments such as *x*, *y, x_lengths, y_lengths, x_normals, y_normals, weights, batch_reduction, point_reduction, norm*, and *infty*. The function takes two point clouds *x* and *y* and calculates the Chamfer distance between them. The input point clouds can be either a FloatTensor of shape *(N, P, D)* or a Pointclouds object representing a batch of point clouds with at most *P* points in each batch element, batch size *N* and feature dimension *D*.
+
+The function first validates the reduction arguments, *batch_reduction* and *point_reduction*, by checking if they are valid values. Then it checks the input point cloud format and returns the padded points tensor along with the number of points per batch and the padded normals if the input is an instance of Pointclouds. Otherwise, it returns the input points with the number of points per cloud set to the size of the second dimension of points.
+
+The function calculates the Chamfer distance between two point clouds *x* and *y* by calculating the pairwise distance between each point in x and each point in y and taking the minimum distance. The same process is repeated with x and y swapped to obtain two distances, and their sum is returned as the Chamfer distance. The function can also handle point clouds with varying numbers of points by using *x_lengths* and *y_lengths*. The distance metric used is either L1 or L2, depending on the value of norm. The reduction operation used to calculate the distance across the batch and across the points is determined by the values of *batch_reduction* and point_reduction, respectively. The function returns the reduced Chamfer distance and the reduced cosine distance of the normals if provided.
+
+This script also defines a function called *make_color_plot* that takes three arguments: *n, norm*, and *infty*. The purpose of this function is to compute a similarity matrix between different faces and visualize it as a heatmap.
+
+## dataset.py
+The script is written in Python and contains functions that create and visualize different datasets of 3D objects using the shapemaker module. The functions include creating datasets of 8D metaballs, 3D metaballs, and ellipsoids, loading and visualizing 3D faces, human models, and chicken models. The functions that load and normalize the point clouds are provided as examples and are not used in the script. The resulting point clouds are saved to binary files. The draw_point_cloud() function from the shapemaker module is used to visualize the point clouds.
+
+## interpolation.py
+The code defines three functions, *interpol_2d(), interploate_3d(start_shape, end_shape)*, and *interploate_2d(start_shape, end_shape)*. The *interpol_2d()* function loads two trained models, interpolates between them using a loop, and calls two plotting functions, *color_plot_interpolate()* and *draw_phase_field_interpolate()*. The *interploate_3d(start_shape, end_shape)* function loads a dataset, an autoencoder, and a shape space network, interpolates between two shapes using the autoencoder and shape space network, and saves Paraview files of the intermediate shapes. The *interploate_2d(start_shape, end_shape)* function loads a dataset, an autoencoder, and a shape space network, interpolates between two shapes using the autoencoder and shape space network, and calls the *draw_phase_field_paper_is()* function to plot the intermediate shapes. 
+
+
+## logger.py
 
 This code defines a class called Register which creates a logging mechanism for an experiment. The *__init__* method takes a file argument, which is used to create a unique identifier for the experiment by combining the name of the file and the current date and time.
 
@@ -105,7 +121,33 @@ The finished method logs a message indicating that the experiment has finished a
 
 Overall, this code provides a convenient way to log the progress of an experiment to both a file and the console, which can be useful for debugging and analyzing the results of the experiment.
 
+## loss_functionals.py
 
+The code consists of different functions that define different loss functions used in the training of a neural network. The loss functions are for the Modica-Mortola part:
+
+- *ModicaMortola*: Calculates the Monte Carlo Integral of $int_{[0,1]^2} W(u(x)) + eps * |Du(x)|^2 dx$.
+- *Zero_recontruction_loss_Lip*: Calculates the Monte Carlo Estimation of $C * eps^(1/3) * 1/|X| * \sum_{x\in X} |\dashint_{B_delta}(x) u(s) ds|$.
+- *Eikonal_loss*: Calculates the Eikonal loss around the points of point cloud.
+- *Phase_loss*: Calculates the PHASE Loss = $e^(-.5)(\int_\Omega W(u) +e|Du|^2 + Ce(^.3)/(n) sum_{p\in P} \dashint u ) + \mu/n \sum_{p\in P} |1-|w||$.
+
+## Executable files
+
+All of the following files work the same. The code starts by importing the logger module. It then sets some settings, including the number of training sessions, the learning rate, patience, number of nodes, and other parameters. The code then sets up the neural network and loads the dataset. An optimizer is configured, and a logger is set up to record progress. The code then trains the network using a loop that includes backpropagation and a scheduler to adjust the learning rate. Finally, the trained network and autoencoder are saved.
+
+### learn_shapespace_and_AE_2D.py
+Shapespace: Trains Encoder and Decoder for 2-dimensional metacircles.
+
+### learn_shapespace_and_AE.py
+Shapespace: Trains Encoder and Decoder for 3-dimensional metacircles.
+
+### learn_shapespace2D.py
+Shape space: Trains decoder for 2-dimensional metacircles.The correct latent coordinates for each shapes are known and entered into the network.
+
+# run.py
+Surface reconstruction: Learn Phase field representation of a single shape in 2D. Runs on any computers, not only on high performance GPU's.
+
+# volta.py
+Surface reconstruction: Learn Phase field representation of a single shape in 3DD. Runs only on high performance computers.
 
 # Imports
 
