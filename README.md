@@ -93,6 +93,20 @@ concatenated to the input and the concatenation is passed through the fourier la
 - Done :)
 
 
+### logger.py
+
+This code defines a class called Register which creates a logging mechanism for an experiment. The *__init__* method takes a file argument, which is used to create a unique identifier for the experiment by combining the name of the file and the current date and time.
+
+The method then creates a directory with this identifier in the logs folder and saves a copy of the script in this directory. It then creates a logger object with the name new_logger, sets its logging level to *DEBUG*, and adds two handlers to it: one that writes logs to a file called *_output.log* in the experiment directory, and one that writes *logs* to the console. The format of the log message includes the current time, the log level, and the log message itself.
+
+The logging method takes three arguments: *i*, *total_loss*, and *stepsize*, and logs the iteration number, total loss, step size, and time elapsed since the experiment started.
+
+The finished method logs a message indicating that the experiment has finished and prints "Finished!" to the console.
+
+Overall, this code provides a convenient way to log the progress of an experiment to both a file and the console, which can be useful for debugging and analyzing the results of the experiment.
+
+
+
 # Imports
 
 All packages are connected in series as you can see here:
