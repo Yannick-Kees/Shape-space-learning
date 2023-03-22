@@ -55,6 +55,7 @@ scp IP_ADRESS:~\Masterarbeit\structured2560.vts C:\Users\Yannick\Desktop
 
 
 # Files
+**! DISCLAIMER: This paragraph includes AI generated text !_**
 
 | File | Description |
 | --- | --- |
@@ -92,6 +93,8 @@ concatenated to the input and the concatenation is passed through the fourier la
 - Run test_shape_space file 
 - Done :)
 
+
+
 ## analyse_faces.py
 
 The code is a Python script that shows the implementation of the Chamfer distance function for point clouds from the [PyTorch3D](https://pytorch3d.readthedocs.io/en/latest/modules/loss.html) library. The script imports several libraries such as numpy, matplotlib, and PyTorch, including specific modules from them. The Chamfer distance function is defined as own_chamfer_distance with several arguments such as *x*, *y, x_lengths, y_lengths, x_normals, y_normals, weights, batch_reduction, point_reduction, norm*, and *infty*. The function takes two point clouds *x* and *y* and calculates the Chamfer distance between them. The input point clouds can be either a FloatTensor of shape *(N, P, D)* or a Pointclouds object representing a batch of point clouds with at most *P* points in each batch element, batch size *N* and feature dimension *D*.
@@ -126,9 +129,18 @@ Overall, this code provides a convenient way to log the progress of an experimen
 The code consists of different functions that define different loss functions used in the training of a neural network. The loss functions are for the Modica-Mortola part:
 
 - *ModicaMortola*: Calculates the Monte Carlo Integral of $int_{[0,1]^2} W(u(x)) + eps * |Du(x)|^2 dx$.
-- *Zero_recontruction_loss_Lip*: Calculates the Monte Carlo Estimation of $C * eps^(1/3) * 1/|X| * \sum_{x\in X} |\dashint_{B_delta}(x) u(s) ds|$.
+- *Zero_recontruction_loss_Lip*: Calculates the Monte Carlo Estimation of $C * eps^(1/3) * \frac{1}{|P|} * \sum_{p\in P} |\dashint_{B_\delta}(p) u(s) ds|$.
 - *Eikonal_loss*: Calculates the Eikonal loss around the points of point cloud.
-- *Phase_loss*: Calculates the PHASE Loss = $e^(-.5)(\int_\Omega W(u) +e|Du|^2 + Ce(^.3)/(n) sum_{p\in P} \dashint u ) + \mu/n \sum_{p\in P} |1-|w||$.
+- *Phase_loss*: Calculates the PHASE Loss = $e^(-.5)(\int_\Omega W(u) +e|Du|^2 + \frac{Ce(^.3)}{n} sum_{p\in P} \int u ) + \frac{\mu}{n} \sum_{p\in P} |1-|w||$.
+
+And for the Ambrosio-Tortorelli part similar we have 
+- *AT_Phasefield function* calculates a Monte Carlo integral of the form $\frac{1}{n} \sum_{i=1}^n W(u(x_i)) + \epsilon \cdot \left| \nabla u(x_i) \right|^2,$ where $W$ is a given double-well potential, $u$ is the target function, $x_i$ are randomly generated points in the domain $[0,1]^2$, and $\epsilon$ is a scalar parameter. The function takes as input the functions $W$ and $u$, the parameter $\epsilon$, the number of samples $n$, and the dimension $d$ of the point cloud. The function generates $n$ random points and their gradients, then returns the mean of the above expression over all the random points.
+
+- *Zero_recontruction_loss_AT* function calculates a Monte Carlo estimate of the form $C \cdot \epsilon^{\frac{1}{3}} \cdot \frac{1}{|X|} \sum_{x \in X} \left| \dashint_{B_\delta(x)} u(s) , ds \right|,$ where $X$ is a given point cloud, $\delta$ is a fixed radius, $u$ is a function, $C$ is a given constant, and $\epsilon$ is a scalar parameter. The function takes as input the function $u$, the point cloud $X$, the parameter $\epsilon$, the constant $C$, the number of samples $m$, and the dimension $d$ of the point cloud. The function returns the mean of the above expression over all the points in the point cloud.
+
+- *AT_loss function* combines the previous functions, by adding up the values.
+
+
 
 ## Executable files
 
@@ -161,4 +173,9 @@ All packages are connected in series as you can see here:
 * [EVTK (Export VTK) ](https://github.com/paulo-herrera/PyEVTK) <- exports 3D examples for paraview
 * [PointNet Autoencoder](https://github.com/charlesq34/pointnet-autoencoder/tree/cc270113da3f429cebdbe806aa665c1a47ccf0c1) 
 * [PyTorch3D](https://pytorch3d.readthedocs.io/en/latest/modules/loss.html) <- Chamfer Distance
+
+
+
+
+
 
