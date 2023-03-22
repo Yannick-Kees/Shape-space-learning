@@ -159,23 +159,39 @@ Overall, this script provides a set of utility functions for reading and process
 
 This files contains implementations of the different types of neural networks:
 
-- **ParkEtAl**: PyTorch module that implements a neural network structure proposed by Park et al. It includes an optional Fourier feature layer and can perform geometric initialization. The class takes as input the dimensionality of the points in a point cloud, an array of integers indicating the number of neurons in each layer, an array of layer indices to skip, and several other parameters that affect the network's behavior, including the use of Fourier features and the number of features to use.
-
-The class implements the forward pass of the neural network and returns the output. It applies an affine linear transformation to the input data, followed by an activation function (either softplus or ReLU), for each layer in the network. The output of the final layer has a single neuron. If a Fourier feature layer is used, the input data is first transformed into the Fourier domain. If geometric initialization is used, the weight and bias of the final layer are initialized using a geometric initialization technique.
+- **ParkEtAl**: PyTorch module that implements a neural network structure proposed by Park et al. It includes an optional Fourier feature layer and can perform geometric initialization. The class takes as input the dimensionality of the points in a point cloud, an array of integers indicating the number of neurons in each layer, an array of layer indices to skip, and several other parameters that affect the network's behavior, including the use of Fourier features and the number of features to use. The class implements the forward pass of the neural network and returns the output. It applies an affine linear transformation to the input data, followed by an activation function (either softplus or ReLU), for each layer in the network. The output of the final layer has a single neuron. If a Fourier feature layer is used, the input data is first transformed into the Fourier domain. If geometric initialization is used, the weight and bias of the final layer are initialized using a geometric initialization technique.
 
 - **FeatureSpaceNetwork2** This is very similar to the *ParkEtAl* class, with the difference beeing, it is designed to process point clouds with additional feature vectors. In addition to the basic architecture, the class introduces the use of Fourier features to encode the point positions and a feature vector, which is concatenated to the input after passing through the Fourier feature layer.
 
-- **PointNetAutoEncoder** PyTorch module that implements an autoencoder for point clouds. The purpose of this autoencoder is to encode a point cloud into a low-dimensional feature vector and then decode it back into its original point cloud shape. This is achieved through a series of fully connected layers and a 1D convolutional layer.
-
-The constructor takes three arguments: point_dim, num_points, and ft_dimension. point_dim is the dimension of each point in the point cloud, num_points is the number of points in the point cloud, and ft_dimension is the dimension of the feature vector to be learned.
-
-The module has three layers: *conv1, fc1,* and *fc3*. *conv1* is a 1D convolutional layer that takes in the point cloud as input and outputs a feature vector of dimension ft_dimension. *fc1* is a fully connected layer that takes in the output of *conv1* and outputs a feature vector of dimension 512. *fc3* is another fully connected layer that takes in the output of *fc1* and outputs a vector of size *num_points* * *point_dim*, which is then reshaped into the original point cloud shape.
-
-In the forward pass, the input point cloud is first passed through the *conv1* layer with a ReLU activation function. The resulting feature vector is then max-pooled over the points in the point cloud, and then flattened into a 1D tensor. This tensor is saved as the global feature. The flattened feature vector is then passed through the *fc1* layer with a ReLU activation function, and then through *fc3* to obtain the reconstructed point cloud. Finally, the reconstructed point cloud is reshaped into the original point cloud shape and returned, along with the global feature.
+- **PointNetAutoEncoder** PyTorch module that implements an autoencoder for point clouds. The purpose of this autoencoder is to encode a point cloud into a low-dimensional feature vector and then decode it back into its original point cloud shape. This is achieved through a series of fully connected layers and a 1D convolutional layer. The constructor takes three arguments: point_dim, num_points, and ft_dimension. point_dim is the dimension of each point in the point cloud, num_points is the number of points in the point cloud, and ft_dimension is the dimension of the feature vector to be learned. The module has three layers: *conv1, fc1,* and *fc3*. *conv1* is a 1D convolutional layer that takes in the point cloud as input and outputs a feature vector of dimension ft_dimension. *fc1* is a fully connected layer that takes in the output of *conv1* and outputs a feature vector of dimension 512. *fc3* is another fully connected layer that takes in the output of *fc1* and outputs a vector of size *num_points* * *point_dim*, which is then reshaped into the original point cloud shape. In the forward pass, the input point cloud is first passed through the *conv1* layer with a ReLU activation function. The resulting feature vector is then max-pooled over the points in the point cloud, and then flattened into a 1D tensor. This tensor is saved as the global feature. The flattened feature vector is then passed through the *fc1* layer with a ReLU activation function, and then through *fc3* to obtain the reconstructed point cloud. Finally, the reconstructed point cloud is reshaped into the original point cloud shape and returned, along with the global feature.
 
 ## pointclouds.py 
 
+The script defines several functions for generating different types of point clouds, including:
 
+- **produce_circle**: generates a set of points evenly distributed along the circumference of a circle.
+- **produce_pan**: generates a set of points evenly distributed along the circumference of a circle and n additional points that are uniformly distributed from 0 to 1/3.
+- **produce_spiral**: generates a set of points that follow a spiral pattern around a central point.
+- **makeCube**: prints out a list of the coordinates of the corners of a cube with a given size.
+- **flat_circle**: generates a set of points that lie on a 2D circle in 3D space.
+
+The script also defines several variables, which are sets of points generated manually. These variables are:
+
+- *k_quadrath*: a square with 4 points
+- *m_quadrath*: a square with 8 points
+- *g_quadrath*: a square with 24 points
+- *triangle*: a triangle with 20 points
+- *bow*: an open curve with 16 points
+- *eight*: a curve in the shape of an 8 with 33 points
+
+
+The code also includes three functions for manipulating point clouds.
+
+- The first function, **add_noise(pc)**, adds random noise to every second point in the point cloud *pc.* The noise is generated using the *uniform()* function from the random module, which returns a random *float* in the range [ a, b ).
+
+- The second function, **normalize(pc)**, scales all the points in the point cloud pc to be within the range [-0.3, 0.3]. It first converts the *pc* list to a *numpy* matrix, finds the minimum value in the matrix, and subtracts it from all elements. It then calculates the maximum value of the matrix, scales the matrix by a factor of 0.6, and shifts it by 0.3. Finally, it converts the *numpy* matrix back to a list.
+
+- The third function, **cut_hole(pc)**, removes a circular hole from the point cloud *pc*. It creates a new list *new_pc* and iterates over each point in *pc*. If the point is not inside the specified circular region (determined by a center at [0, 0.15, 0] and a radius of 0.05), the point is appended to the new list *new_pc*. The function prints the length of pc and the length of *new_pc* for diagnostic purposes and returns *new_pc*.
 
 ## Executable files
 
