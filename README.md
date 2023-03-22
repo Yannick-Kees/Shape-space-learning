@@ -228,10 +228,10 @@ Shapespace: Trains Encoder and Decoder for 3-dimensional metacircles.
 ### learn_shapespace2D.py
 Shape space: Trains decoder for 2-dimensional metacircles.The correct latent coordinates for each shapes are known and entered into the network.
 
-# run.py
+### run.py
 Surface reconstruction: Learn Phase field representation of a single shape in 2D. Runs on any computers, not only on high performance GPU's.
 
-# volta.py
+### volta.py
 Surface reconstruction: Learn Phase field representation of a single shape in 3DD. Runs only on high performance computers.
 
 # Imports
