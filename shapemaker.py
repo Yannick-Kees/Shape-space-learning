@@ -165,7 +165,7 @@ def shape_maker1(d, num_points, save_latent=False):
         condition = True
         
         while condition:
-            n=  randint(2, 15)
+            n= 3  # randint(2, 15)
             
             g = 3
             m = []
@@ -241,7 +241,10 @@ def shape_maker1(d, num_points, save_latent=False):
         choices = [contour[i] for i in choice_indices]
             
         
-        return np.array(normalize(choices)) 
+        if not save_latent:
+            return np.array(normalize(choices))
+        else:
+            return np.array(normalize(choices)),  torch.cat((Tensor(s),torch.ravel(Tensor(m))),0)  # Also save GT latent representation
     
     
     
