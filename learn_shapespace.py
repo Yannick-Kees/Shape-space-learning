@@ -20,6 +20,7 @@ CONSTANT = 2. if FOURIER_FEATUERS else 10.0
 FEATURE_DIMENSION = 9
 SIZE_POINTCLOUD = 500
 TOTAL_SHAPES = 499
+POINT_DIM = 2
 
 
 ####################
@@ -30,7 +31,7 @@ TOTAL_SHAPES = 499
 dataset = np.load(open(r"dataset/dataset_9DCircleLATENT.npy", "rb"),allow_pickle=True)
 
 #   Setup Network
-network =  FeatureSpaceNetwork2(2, [512]*7 , [4], FourierFeatures=FOURIER_FEATUERS, num_features = 8, sigma = SIGMA, feature_space=FEATURE_DIMENSION, geometric_init=False )
+network =  FeatureSpaceNetwork2(POINT_DIM, [512]*7 , [4], FourierFeatures=FOURIER_FEATUERS, num_features = 8, sigma = SIGMA, feature_space=FEATURE_DIMENSION, geometric_init=False )
 network.to(device) 
 
 #   Configure Optimizer
