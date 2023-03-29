@@ -63,7 +63,7 @@ scp IP_ADRESS:~\Masterarbeit\structured2560.vts C:\Users\Yannick\Desktop
 | `interpolation.py` | Interpolation between to shapes of the shape space. The functions get as input the different shape space indices and interpolate the computed latent coordinates |
 | `learn_shapespace_and_AE_2D.py` | Trains Shape space network together with the Encoder on 2D examples |
 | `learn_shapespace_and_AE.py` | Trains Shape space network together with the Encoder on 3D examples |
-| `learn_shapespace2D.py` | Trains Shape space network on 2D examples. The ground truth feature vectors are known and entered into the network. |
+| `learn_shapespace.py` | Trains Shape space network on 2D and 3D examples. The ground truth feature vectors are known and entered into the network. |
 | `logger.py` | Denotes the loss over time in a file and also saves a copy of the current version of the executeable python script  |
 | `loss_functionals.py` | Computes Modica-Mortola and Ambrosio-Tortorelli. There are different versions for the shape space learning and the surface reconstruction parts  |
 | `misc.py` | Handles import of different file formates, enables CUDA and shows progress on console  |
@@ -225,8 +225,8 @@ Shapespace: Trains Encoder and Decoder for 2-dimensional metacircles.
 ### learn_shapespace_and_AE.py
 Shapespace: Trains Encoder and Decoder for 3-dimensional metacircles.
 
-### learn_shapespace2D.py
-Shape space: Trains decoder for 2-dimensional metacircles.The correct latent coordinates for each shapes are known and entered into the network.
+### learn_shapespace.py
+Shape space: Trains decoder for 2- and 3-dimensional metaballs. The correct latent coordinates for each shapes are known and entered into the network.
 
 ### run.py
 Surface reconstruction: Learn Phase field representation of a single shape in 2D. Runs on any computers, not only on high performance GPU's.
