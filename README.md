@@ -10,7 +10,7 @@
 # About
 This is an implementation based on my Master Thesis
 
-* [Learning Geometric Phase Field representations](https://drive.google.com/drive/folders/1LKQha7mYWvPzKKS2yC0zf_19FEzRlly8) (Yannick Kees 2022)
+* [Learning Geometric Phase Field representations](https://github.com/Yannick-Kees/Shape-space-learning/blob/main/documents/Thesis.pdf) (Yannick Kees 2022)
 
 The area of computer graphics is a field of mathematics and computer science that deals with creating and manipulating visual content. One central question in computer graphics is the best way to represent three-dimensional data effectively. Most conventional approaches approximate the object’s surface discretely, for example, with meshes. One problem with these approaches is that spatial discretization limits them, just as the display of an image is limited by its number of pixels. Another popular approach is implicit representation, in which the object is written as the level set of an appropriate function. Instead of discretizing the output domain, we can now discretize the space of available functions. In this thesis, we deal with how to find such a function. To this end, we place a particular focus on phase field functions. These functions are, for the most part, constant, with a smooth transition along the surface where the value of the function changes. We distinguish between two different models: the Modica-Mortola approach,in which there are two different phases for an interior and exterior, and the Ambrosio-Tortorelli approach, in which there is only one phase. Calculating these functions is very challenging. Therefore we use deep learning, i.e., neural networks, to approximate the phase fields. The starting points for all our calculations are sets of points sampled from the surfaces of the objects. Learning implicit functions using the Modica-Mortola approach has been introduced in [Phase Transitions, Distance Functions, and Implicit Neural Representations](https://arxiv.org/abs/2106.07689). The new approach Ambrosio-Tortorelli approach in this work based on [Approximation of Functionals Depending on Jumps by Elliptic Functionals via $\Gamma$-Convergence](https://onlinelibrary.wiley.com/doi/pdf/10.1002/cpa.3160430805). Using this new approach, we will also be able to process open surfaces, which was impossible before. To do this, we distinguish two different tasks. The first goal will be to train a network to match the phase field for a single 3D object. In the second step, we will train a network that can
 represent the phase fields for several objects at once. Therefore, the network receives additional object-specific input. 
@@ -71,7 +71,7 @@ scp IP_ADRESS:~\Masterarbeit\structured2560.vts C:\Users\Yannick\Desktop
 | `packages.py` | All used third party packages |
 | `pointclouds.py` | Creates or changes point clouds |
 | `run.py` | Solves the 2D reconstruction problem. Can be executed on any computer |
-| `runMMS.py` | Deep minimizing movement scheme, for more see [HERE](https://drive.google.com/file/d/1txqmr8siLwQjA0l8lGcqScwr0hRWTuvF/view?usp=share_link) |
+| `runMMS.py` | Deep minimizing movement scheme, for more see [HERE](https://github.com/Yannick-Kees/Shape-space-learning/blob/main/documents/Minimizing%20Movement%20Scheme.pdf) |
 | `shapemaker.py` | Programm that can produce random point clouds in 2D or 3D form metaballs |
 | `test_autoencoder.py` | Plot inputs and outputs of Autoencoder for differnt shapes of dataset  |
 | `test_shape_space.py` | Make plots of elements of shape space after training  |
